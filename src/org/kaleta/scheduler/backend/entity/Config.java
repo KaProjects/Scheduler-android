@@ -8,18 +8,18 @@ import java.util.List;
  */
 public class Config {
     private List<Integer> monthIds;
-    private List<UserType> types;
+    private List<ItemType> types;
 
     public Config(){
         monthIds = new ArrayList<Integer>();
-        types = new ArrayList<UserType>();
+        types = new ArrayList<ItemType>();
     }
 
     public List<Integer> getMonthIds() {
         return monthIds;
     }
 
-    public List<UserType> getTypes() {
+    public List<ItemType> getTypes() {
         return types;
     }
 

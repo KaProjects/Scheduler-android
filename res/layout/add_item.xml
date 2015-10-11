@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_horizontal">
+        <TableRow android:layout_width="fill_parent"
+                  android:layout_height="fill_parent">
+            <LinearLayout android:orientation="horizontal">
+                <EditText android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:inputType="number"
+                          android:ems="10"
+                          android:id="@+id/itemTextDay"/>
+                <Button android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/today"
+                        android:id="@+id/itemButtonToday"/>
+            </LinearLayout>
+        </TableRow>
+        <TableRow>
+            <ToggleButton android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:checked="false"
+                          android:id="@+id/itemToggleIncome"/>
+        </TableRow>
+        <TableRow android:layout_width="fill_parent"
+                  android:layout_height="fill_parent">
+            <AutoCompleteTextView android:layout_width="wrap_content"
+                     android:layout_height="fill_parent"
+                     android:id="@+id/itemTextType"/>
+        </TableRow>
+        <TableRow android:layout_width="fill_parent"
+                  android:layout_height="fill_parent">
+            <Spinner android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:id="@+id/itemSpinnerDesc"/>
+        </TableRow>
+        <TableRow android:layout_width="fill_parent"
+                  android:layout_height="fill_parent">
+            <EditText android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:inputType="number"
+                      android:ems="10"
+                      android:id="@+id/itemTextAmount"/>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

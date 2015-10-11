@@ -5,7 +5,6 @@ import android.util.Log;
 import org.kaleta.scheduler.MyActivity;
 import org.kaleta.scheduler.backend.entity.Item;
 import org.kaleta.scheduler.backend.entity.Month;
-import org.kaleta.scheduler.backend.entity.UserType;
 import org.kaleta.scheduler.backend.service.Service;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;

@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Scheduler</string>
     <string name="add_month">Add Month</string>
-    <string name="set_month_name">set month name</string>
+    <string name="set_month_name_hint">set month name</string>
     <string name="creating_month">Creating Month</string>
     <string name="create">Create</string>
     <string name="cancel">Cancel</string>
@@ -11,4 +11,13 @@
     <string name="add_item">Add Item</string>
     <string name="preview_items">Preview Items</string>
     <string name="statistics">Statistics</string>
+
+    <string name="adding_item">Adding Item</string>
+    <string name="set_day_hint">set day</string>
+    <string name="set_amount_hint">set amount</string>
+    <string name="today">Today</string>
+    <string name="add">Add</string>
+    <string name="income">Income</string>
+    <string name="expense">Expense</string>
+
 </resources>

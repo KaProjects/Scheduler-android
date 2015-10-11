@@ -1,23 +1,28 @@
 package org.kaleta.scheduler;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
+import org.kaleta.scheduler.backend.entity.Config;
+import org.kaleta.scheduler.backend.entity.Item;
+import org.kaleta.scheduler.backend.entity.ItemType;
+import org.kaleta.scheduler.backend.manager.ConfigManager;
+import org.kaleta.scheduler.backend.manager.ManagerException;
 import org.kaleta.scheduler.backend.service.Service;
+import org.kaleta.scheduler.frontend.AddItemDialog;
 import org.kaleta.scheduler.frontend.InputDialog;
 import org.kaleta.scheduler.frontend.MessageDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by Stanislav Kaleta on 10.10.2015.
+ */
 public class MyActivity extends Activity {
     public static final String SCHEDULER_DIRECTORY = "SCHEDULER";
 
@@ -41,15 +46,15 @@ public class MyActivity extends Activity {
 
         monthNames.addAll(service.getMonthNames());
 
-        final Spinner spinnerNotes = (Spinner) findViewById(R.id.mainSpinnerMonth);
+        final Spinner spinnerMonth = (Spinner) findViewById(R.id.mainSpinnerMonth);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,monthNames);
-        spinnerNotes.setAdapter(adapter);
+        spinnerMonth.setAdapter(adapter);
 
         Button buttonAddMonth = (Button) findViewById(R.id.mainButtonMonth);
         buttonAddMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InputDialog dialog = new InputDialog(v.getContext(), R.string.creating_month, R.string.set_month_name) {
+                new InputDialog(v.getContext(), R.string.creating_month, R.string.set_month_name_hint) {
                     @Override
                     public void onPositiveClick(Context context, String insertedValue) {
                         if (insertedValue.trim().isEmpty()) {
@@ -63,14 +68,25 @@ public class MyActivity extends Activity {
 
                         service.createMonth(insertedValue);
                         monthNames.add(insertedValue);
-                        spinnerNotes.setSelection(monthNames.indexOf(insertedValue));
+                        spinnerMonth.setSelection(monthNames.indexOf(insertedValue));
                     }
-                };
-                dialog.show();
+                }.show();
             }
         });
 
         Button buttonAddItem = (Button) findViewById(R.id.mainButtonItem);
+        buttonAddItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AddItemDialog(v.getContext(), service.getItemTypes()) {
+                    @Override
+                    public void performAddItem(Item item) {
+                        // TODO service.performAddItem() <- month name, item
+                    }
+                }.show();
+            }
+        });
+
 
         Button buttonPreview = (Button) findViewById(R.id.mainButtonPreview);
 

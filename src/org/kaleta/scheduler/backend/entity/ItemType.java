@@ -6,12 +6,12 @@ import java.util.List;
 /**
  * Created by Stanislav Kaleta on 10.10.2015.
  */
-public class UserType {
+public class ItemType {
     private String name;
     private List<String> preparedDescriptions;
     private Boolean income;
 
-    public UserType(){
+    public ItemType(){
         name = null;
         preparedDescriptions = new ArrayList<String>();
         income = null;
@@ -42,7 +42,7 @@ public class UserType {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserType type = (UserType) o;
+        ItemType type = (ItemType) o;
 
         if (name != null ? !name.equals(type.name) : type.name != null) return false;
         if (preparedDescriptions != null ? !preparedDescriptions.equals(type.preparedDescriptions) : type.preparedDescriptions != null)

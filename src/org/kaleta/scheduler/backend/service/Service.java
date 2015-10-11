@@ -1,7 +1,9 @@
 package org.kaleta.scheduler.backend.service;
 
 import org.kaleta.scheduler.backend.entity.Config;
+import org.kaleta.scheduler.backend.entity.Item;
 import org.kaleta.scheduler.backend.entity.Month;
+import org.kaleta.scheduler.backend.entity.ItemType;
 import org.kaleta.scheduler.backend.manager.ConfigManager;
 import org.kaleta.scheduler.backend.manager.ManagerException;
 import org.kaleta.scheduler.backend.manager.MonthManager;
@@ -84,5 +86,21 @@ public class Service {
         }
     }
 
+    /**
+     * Retrieves item types from config file.
+     * @return list of item types
+     */
+    public List<ItemType> getItemTypes(){
+        try {
+            ConfigManager configManager = new ConfigManager();
+            Config config = configManager.retrieveConfig();
+            return config.getTypes();
+        } catch (ManagerException e) {
+            throw new ServiceFailureException(e);
+        }
+    }
 
+    public void addItem(Item item, String monthName){
+        // TODO ...
+    }
 }

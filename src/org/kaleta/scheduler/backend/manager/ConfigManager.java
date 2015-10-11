@@ -4,7 +4,7 @@ import android.os.Environment;
 import android.util.Log;
 import org.kaleta.scheduler.MyActivity;
 import org.kaleta.scheduler.backend.entity.Config;
-import org.kaleta.scheduler.backend.entity.UserType;
+import org.kaleta.scheduler.backend.entity.ItemType;
 import org.kaleta.scheduler.backend.service.Service;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
@@ -102,9 +102,9 @@ public class ConfigManager {
             config.getMonthIds().addAll(idList);
 
             NodeList types = document.getDocumentElement().getElementsByTagName("types").item(0).getChildNodes();
-            List<UserType> typeList = new ArrayList<UserType>();
+            List<ItemType> typeList = new ArrayList<ItemType>();
             for (int i=0;i<types.getLength();i++){
-                UserType type = new UserType();
+                ItemType type = new ItemType();
                 Node typeNode = types.item(i);
 
                 String name = typeNode.getAttributes().getNamedItem("name").getNodeValue();
@@ -172,7 +172,7 @@ public class ConfigManager {
             for (int i=0;i<typeNodes.getLength();i++){
                 typesE.removeChild(typeNodes.item(i));
             }
-            for (UserType type : config.getTypes()){
+            for (ItemType type : config.getTypes()){
                 Element typeE = document.createElement("type");
 
                 Attr nameA = document.createAttribute("name");
