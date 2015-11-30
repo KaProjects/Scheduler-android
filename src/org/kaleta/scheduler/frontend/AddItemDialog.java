@@ -12,6 +12,7 @@ import org.kaleta.scheduler.backend.entity.Item;
 import org.kaleta.scheduler.backend.entity.ItemType;
 import org.kaleta.scheduler.backend.service.Service;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -26,7 +27,7 @@ public abstract class AddItemDialog extends AlertDialog.Builder {
     private ToggleButton toggleButtonIncome;
     private AutoCompleteTextView textType;
 
-    public AddItemDialog(Context context, List<ItemType> types) {
+    public AddItemDialog(final Context context, List<ItemType> types) {
         super(context);
         this.types = types;
         textTypeList = new ArrayList<String>();
@@ -70,12 +71,12 @@ public abstract class AddItemDialog extends AlertDialog.Builder {
             }
         });
 
-        Spinner spinnerDesc = (Spinner) newItemView.findViewById(R.id.itemSpinnerDesc);
+        final Spinner spinnerDesc = (Spinner) newItemView.findViewById(R.id.itemSpinnerDesc);
         ArrayAdapter<String> adapterDesc = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, spinnerDescList);
         spinnerDesc.setAdapter(adapterDesc);
         // TODO change to AutoCompleteTextView + (textType onSelectAction will fill this with desc.(+clear))
 
-        EditText textAmount = (EditText) newItemView.findViewById(R.id.itemTextAmount);
+        final EditText textAmount = (EditText) newItemView.findViewById(R.id.itemTextAmount);
         textAmount.setHint(R.string.set_amount_hint);
 
         this.setView(newItemView);
@@ -83,8 +84,52 @@ public abstract class AddItemDialog extends AlertDialog.Builder {
         this.setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // add item to specific month
-                // TODO construct item and call performAddItem
+                Item item = new Item();
+
+                Integer day = null;
+                try {
+                    day = Integer.valueOf(textDay.getText().toString());
+                    // TODO test if needed - Id say if its empty, it will not parse
+                    if (day == null || day == 0){
+                        new MessageDialog(context, "Day is not selected!").show();
+                        return;
+                    }
+                } catch (NumberFormatException e){ // TODO test
+                    new MessageDialog(context, "Inserted day is not valid!").show();
+                    return;
+                }
+                item.setDay(day);
+
+                BigDecimal amount = null;
+                try {
+                    amount = BigDecimal.valueOf(Double.valueOf(textAmount.getText().toString()));
+                    // TODO test if needed - Id say if its empty, it will not parse
+                    if (amount == null){
+                        new MessageDialog(context, "Amount is not selected!").show();
+                        return;
+                    }
+                } catch (NumberFormatException e){ // TODO test
+                    new MessageDialog(context, "Inserted amount is not valid!").show();
+                    return;
+                }
+                item.setAmount(amount);
+
+                String description = (String) spinnerDesc.getSelectedItem();
+                if (description == null){
+                    description = "";
+                }
+                item.setDescription(description);
+
+                String type = textType.getText().toString();
+                if (type == null || type.equals("")){ // TODO test
+                    new MessageDialog(context, "Type is not selected!").show();
+                    return;
+                }
+                item.setType(type);
+
+                item.setIncome(toggleButtonIncome.isChecked()); // TODO test
+
+                performAddItem(item);
             }
         });
 

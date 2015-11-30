@@ -100,7 +100,28 @@ public class Service {
         }
     }
 
-    public void addItem(Item item, String monthName){
-        // TODO ...
+    public void addItem(Item newItem, String monthName){
+        try {
+            ConfigManager configManager = new ConfigManager();
+            MonthManager monthManager = new MonthManager();
+
+            for (Integer id : configManager.retrieveConfig().getMonthIds()){
+                Month month = monthManager.retrieveMonth(id);
+                if (monthName.equals(month.getName())){
+                    Integer newId = 0;
+                    for (Item i : month.getItemList()){
+                        if (i.getId() > newId){
+                            newId = i.getId();
+                        }
+                    }
+                    newId++;
+                    newItem.setId(newId);
+                    month.getItemList().add(newItem);
+                    monthManager.updateMonth(month);
+                }
+            }
+        } catch (ManagerException e) {
+            throw new ServiceFailureException(e);
+        }
     }
 }

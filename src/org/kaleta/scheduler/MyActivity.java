@@ -78,12 +78,14 @@ public class MyActivity extends Activity {
         buttonAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AddItemDialog(v.getContext(), service.getItemTypes()) {
-                    @Override
-                    public void performAddItem(Item item) {
-                        // TODO service.performAddItem() <- month name, item
-                    }
-                }.show();
+                if (monthNames.contains(spinnerMonth.getSelectedItem())) {
+                    new AddItemDialog(v.getContext(), service.getItemTypes()) {
+                        @Override
+                        public void performAddItem(Item item) {
+                            service.addItem(item, (String) spinnerMonth.getSelectedItem());
+                        }
+                    }.show();
+                }
             }
         });
 
