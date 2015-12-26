@@ -1,32 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent">
-    <GridLayout android:layout_width="match_parent"
-                android:layout_height="fill_parent">
-        <Button android:text="@string/add_month"
-                android:id="@+id/mainButtonMonth"
-                android:layout_row="0"
-                android:layout_column="0"/>
-        <Spinner android:id="@+id/mainSpinnerMonth"
-                 android:layout_row="0"
-                 android:layout_column="1"/>
-        <Button android:text="@string/add_item"
-                android:id="@+id/mainButtonItem"
-                android:layout_row="1"
-                android:layout_column="1"/>
-        <Button android:text="@string/preview_items"
-                android:id="@+id/mainButtonPreview"
-                android:layout_row="2"
-                android:layout_column="1"/>
-        <Button android:text="@string/statistics"
-                android:id="@+id/mainButtonStats"
-                android:layout_row="3"
-                android:layout_column="1"/>
 
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:padding="10dip">
 
-    </GridLayout>
+    <TextView android:text="@string/label_month_text"
+              android:layout_row="0"
+              android:layout_column="0"/>
 
-</LinearLayout>
+    <Spinner android:id="@+id/spinnerMonth"
+             android:layout_row="1"
+             android:layout_column="0"
+             android:layout_gravity="fill_horizontal"
+             android:layout_columnSpan="2"/>
+
+    <Button android:text="@string/button_add_month_text"
+            android:id="@+id/buttonAddMonth"
+            android:layout_row="1"
+            android:layout_column="2"
+            android:layout_gravity="fill_vertical"/>
+
+    <LinearLayout android:orientation="vertical"
+                  android:layout_row="2"
+                  android:layout_column="0"
+                  android:layout_columnSpan="3"
+                  android:layout_gravity="fill"
+                  android:padding="30dip">
+
+        <Button android:text="@string/button_add_item_text"
+                android:id="@+id/buttonAddItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"/>
+
+        <Button android:text="@string/button_preview_items_text"
+                android:id="@+id/buttonPreview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dip"/>
+
+        <Button android:text="@string/button_statistics_text"
+                android:id="@+id/buttonStats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+</GridLayout>
 

@@ -46,11 +46,11 @@ public class MyActivity extends Activity {
 
         monthNames.addAll(service.getMonthNames());
 
-        final Spinner spinnerMonth = (Spinner) findViewById(R.id.mainSpinnerMonth);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,monthNames);
+        final Spinner spinnerMonth = (Spinner) findViewById(R.id.spinnerMonth);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item,monthNames);
         spinnerMonth.setAdapter(adapter);
 
-        Button buttonAddMonth = (Button) findViewById(R.id.mainButtonMonth);
+        Button buttonAddMonth = (Button) findViewById(R.id.buttonAddMonth);
         buttonAddMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,7 +74,7 @@ public class MyActivity extends Activity {
             }
         });
 
-        Button buttonAddItem = (Button) findViewById(R.id.mainButtonItem);
+        Button buttonAddItem = (Button) findViewById(R.id.buttonAddItem);
         buttonAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,9 +90,9 @@ public class MyActivity extends Activity {
         });
 
 
-        Button buttonPreview = (Button) findViewById(R.id.mainButtonPreview);
+        Button buttonPreview = (Button) findViewById(R.id.buttonPreview);
 
-        Button buttonStats = (Button) findViewById(R.id.mainButtonStats);
+        Button buttonStats = (Button) findViewById(R.id.buttonStats);
 
 
 

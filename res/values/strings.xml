@@ -8,10 +8,6 @@
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
 
-    <string name="add_item">Add Item</string>
-    <string name="preview_items">Preview Items</string>
-    <string name="statistics">Statistics</string>
-
     <string name="adding_item">Adding Item</string>
     <string name="set_day_hint">set day</string>
     <string name="set_amount_hint">set amount</string>
@@ -19,5 +15,11 @@
     <string name="add">Add</string>
     <string name="income">Income</string>
     <string name="expense">Expense</string>
+
+    <string name="label_month_text">Month:</string>
+    <string name="button_add_month_text">Add</string>
+    <string name="button_add_item_text">Add Item</string>
+    <string name="button_preview_items_text">Preview Items</string>
+    <string name="button_statistics_text">Statistics</string>
 
 </resources>

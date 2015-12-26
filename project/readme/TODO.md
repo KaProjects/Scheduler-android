@@ -2,7 +2,6 @@
 ### 2.0
 + test add item dialog + service + adjust components
 + impl. preview + stats
-+ adjust main layout
 + solve all TODOs
 + try to build apk via maven
 + release:
