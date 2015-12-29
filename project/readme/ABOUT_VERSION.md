@@ -9,5 +9,5 @@ in progress...
 
     Reworked back-end, now using xml for storing data. 
     Improved layouts and gui.
-    Implemented socket server in purpose of exporting data to pc app.
+    Implemented socket server for synchronization with pc app. purposes.
     

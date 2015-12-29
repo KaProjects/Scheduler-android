@@ -96,6 +96,22 @@ public class Service {
     }
 
     /**
+     * TODo
+     * @param typeList
+     */
+    public void setItemTypes(List<ItemType> typeList){
+        try {
+            ConfigManager configManager = new ConfigManager();
+            Config config = configManager.retrieveConfig();
+            config.getTypes().clear();
+            config.getTypes().addAll(typeList);
+            configManager.updateConfig(config);
+        } catch (ManagerException e) {
+            throw new ServiceFailureException(e);
+        }
+    }
+
+    /**
      * TODO
      * @param newItem
      * @param monthName
@@ -126,6 +142,10 @@ public class Service {
         }
     }
 
+    /**
+     * TODO
+     * @param monthName
+     */
     public void markMonthAsExported(String monthName){
         try {
             ConfigManager configManager = new ConfigManager();

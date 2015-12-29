@@ -1,6 +1,5 @@
 ## Versions
 ### 2.0
-+ add item dialog: adjust components(gaps,...)
 + solve all TODOs
 + try to build apk via maven
 + release:
@@ -10,6 +9,7 @@
 
 ### 2.1
 + impl. preview + stats
++ analyze SFEx.
 
 ## Ideas
 - ...

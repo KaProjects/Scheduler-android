@@ -67,14 +67,8 @@ public class ConfigManager {
             StreamResult result = new StreamResult(configFile);
             transformer.transform(source, result);
             Log.i(Service.BACKEND_TAG,"File config.xml successfully created.");
-        } catch (ParserConfigurationException e) {
+        } catch (ParserConfigurationException | TransformerException e) {
             Log.e(e.getClass().getName(),e.getMessage());
-            throw new ManagerException(e);
-        } catch (TransformerConfigurationException e) {
-            Log.e(e.getClass().getName(), e.getMessage());
-            throw new ManagerException(e);
-        } catch (TransformerException e) {
-            Log.e(e.getClass().getName(), e.getMessage());
             throw new ManagerException(e);
         }
 
@@ -126,13 +120,7 @@ public class ConfigManager {
             config.getTypes().addAll(typeList);
 
             return config;
-        } catch (ParserConfigurationException e) {
-            Log.e(e.getClass().getName(), e.getMessage());
-            throw new ManagerException(e);
-        } catch (SAXException e) {
-            Log.e(e.getClass().getName(), e.getMessage());
-            throw new ManagerException(e);
-        } catch (IOException e) {
+        } catch (ParserConfigurationException | SAXException | IOException e) {
             Log.e(e.getClass().getName(), e.getMessage());
             throw new ManagerException(e);
         }
@@ -204,19 +192,7 @@ public class ConfigManager {
             StreamResult result = new StreamResult(file);
             transformer.transform(source, result);
             Log.i(Service.BACKEND_TAG, "File config.xml successfully updated.");
-        } catch (ParserConfigurationException e) {
-            Log.e(e.getClass().getName(), e.getMessage());
-            throw new ManagerException(e);
-        } catch (SAXException e) {
-            Log.e(e.getClass().getName(), e.getMessage());
-            throw new ManagerException(e);
-        } catch (IOException e) {
-            Log.e(e.getClass().getName(), e.getMessage());
-            throw new ManagerException(e);
-        } catch (TransformerConfigurationException e) {
-            Log.e(e.getClass().getName(), e.getMessage());
-            throw new ManagerException(e);
-        } catch (TransformerException e) {
+        } catch (ParserConfigurationException | SAXException | IOException | TransformerException e) {
             Log.e(e.getClass().getName(), e.getMessage());
             throw new ManagerException(e);
         }

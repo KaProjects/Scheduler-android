@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import org.kaleta.scheduler.MyActivity;
 import org.kaleta.scheduler.backend.entity.Item;
+import org.kaleta.scheduler.backend.entity.ItemType;
 import org.kaleta.scheduler.backend.entity.Month;
 import org.kaleta.scheduler.backend.manager.ConfigManager;
 import org.kaleta.scheduler.backend.manager.ManagerException;
@@ -14,6 +15,7 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,6 +47,7 @@ public class SocketServerService extends Thread {
                 Socket client = server.accept();
                 input = new BufferedReader(new InputStreamReader(client.getInputStream()));
                 output = new PrintWriter(client.getOutputStream(),true);
+                List<ItemType> importedTypes = new ArrayList<ItemType>();
                 boolean working = true;
                 while (working){
                     String demand = input.readLine();
@@ -52,12 +55,29 @@ public class SocketServerService extends Thread {
                         working = false;
                         continue;
                     }
-                    if (demand.equals("demand")){
+                    if (demand.equals("sendData")){
                         sendData();
                     }
-                    if (demand.startsWith("imported")){
+                    if (demand.startsWith("importedMonth")){
                         String monthName = demand.split("\\$")[1];
                         new Service().markMonthAsExported(monthName);
+                    }
+                    if (demand.equals("exportingTypesStarted")){
+                        importedTypes.clear();
+                    }
+                    if (demand.startsWith("item")){
+                        ItemType type = new ItemType();
+                        type.setName(demand.split("\\$")[1]);
+                        type.setIncome(Boolean.valueOf(demand.split("\\$")[2]));
+                        if (demand.split("\\$").length == 4){
+                            for (String description : demand.split("\\$")[3].split("\\&")){
+                                type.getPreparedDescriptions().add(description);
+                            }
+                        }
+                        importedTypes.add(type);
+                    }
+                    if (demand.equals("exportingTypesFinished")){
+                        new Service().setItemTypes(importedTypes);
                     }
                     if (demand.equals("thanks")){
                         working = false;
