@@ -19,14 +19,14 @@ public abstract class InputDialog extends AlertDialog.Builder{
         textField.setHint(hintId);
         this.setView(textField);
 
-        this.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+        this.setPositiveButton(R.string.button_ok_text, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 onPositiveClick(InputDialog.this.getContext(), textField.getText().toString());
             }
         });
 
-        this.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+        this.setNegativeButton(R.string.button_cancel_text, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();

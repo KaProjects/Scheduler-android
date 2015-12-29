@@ -14,7 +14,7 @@ public class MessageDialog extends AlertDialog.Builder {
     public MessageDialog(Context context, String msg) {
         super(context);
         this.setMessage(msg);
-        this.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+        this.setPositiveButton(R.string.button_ok_text, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();

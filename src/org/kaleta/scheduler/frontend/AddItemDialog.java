@@ -33,12 +33,12 @@ public abstract class AddItemDialog extends AlertDialog.Builder {
         textTypeList = new ArrayList<String>();
         spinnerDescList = new ArrayList<String>();
 
-        this.setTitle(R.string.adding_item);
+        this.setTitle(R.string.dialog_add_item_title);
 
         View newItemView = View.inflate(context, R.layout.add_item, null);
 
         final EditText textDay = (EditText) newItemView.findViewById(R.id.itemTextDay);
-        textDay.setHint(R.string.set_day_hint);
+        textDay.setHint(R.string.hint_set_day);
 
         Button buttonToday = (Button) newItemView.findViewById(R.id.itemButtonToday);
         buttonToday.setOnClickListener(new View.OnClickListener() {
@@ -51,8 +51,8 @@ public abstract class AddItemDialog extends AlertDialog.Builder {
         });
 
         toggleButtonIncome = (ToggleButton) newItemView.findViewById(R.id.itemToggleIncome);
-        toggleButtonIncome.setTextOn(context.getResources().getString(R.string.income));
-        toggleButtonIncome.setTextOff(context.getResources().getString(R.string.expense));
+        toggleButtonIncome.setTextOn(context.getResources().getString(R.string.toggle_income_text));
+        toggleButtonIncome.setTextOff(context.getResources().getString(R.string.toggle_expense_text));
         toggleButtonIncome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,42 +77,30 @@ public abstract class AddItemDialog extends AlertDialog.Builder {
         // TODO change to AutoCompleteTextView + (textType onSelectAction will fill this with desc.(+clear))
 
         final EditText textAmount = (EditText) newItemView.findViewById(R.id.itemTextAmount);
-        textAmount.setHint(R.string.set_amount_hint);
+        textAmount.setHint(R.string.hint_set_amount);
 
         this.setView(newItemView);
 
-        this.setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
+        this.setPositiveButton(R.string.button_add_text, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Item item = new Item();
 
-                Integer day = null;
                 try {
-                    day = Integer.valueOf(textDay.getText().toString());
-                    // TODO test if needed - Id say if its empty, it will not parse
-                    if (day == null || day == 0){
-                        new MessageDialog(context, "Day is not selected!").show();
-                        return;
-                    }
-                } catch (NumberFormatException e){ // TODO test
+                    Integer day = Integer.valueOf(textDay.getText().toString());
+                    item.setDay(day);
+                } catch (NumberFormatException e){
                     new MessageDialog(context, "Inserted day is not valid!").show();
                     return;
                 }
-                item.setDay(day);
 
-                BigDecimal amount = null;
                 try {
-                    amount = BigDecimal.valueOf(Double.valueOf(textAmount.getText().toString()));
-                    // TODO test if needed - Id say if its empty, it will not parse
-                    if (amount == null){
-                        new MessageDialog(context, "Amount is not selected!").show();
-                        return;
-                    }
-                } catch (NumberFormatException e){ // TODO test
+                    BigDecimal amount = BigDecimal.valueOf(Double.valueOf(textAmount.getText().toString()));
+                    item.setAmount(amount);
+                } catch (NumberFormatException e){
                     new MessageDialog(context, "Inserted amount is not valid!").show();
                     return;
                 }
-                item.setAmount(amount);
 
                 String description = (String) spinnerDesc.getSelectedItem();
                 if (description == null){
@@ -121,19 +109,19 @@ public abstract class AddItemDialog extends AlertDialog.Builder {
                 item.setDescription(description);
 
                 String type = textType.getText().toString();
-                if (type == null || type.equals("")){ // TODO test
+                if (type.equals("")){
                     new MessageDialog(context, "Type is not selected!").show();
                     return;
                 }
                 item.setType(type);
 
-                item.setIncome(toggleButtonIncome.isChecked()); // TODO test
+                item.setIncome(toggleButtonIncome.isChecked());
 
                 performAddItem(item);
             }
         });
 
-        this.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+        this.setNegativeButton(R.string.button_cancel_text, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();

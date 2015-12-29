@@ -112,6 +112,7 @@ public class MonthManager {
                 item.setType(attributes.getNamedItem("type").getNodeValue());
                 item.setDescription(attributes.getNamedItem("description").getNodeValue());
                 item.setAmount(BigDecimal.valueOf(Double.parseDouble(attributes.getNamedItem("amount").getNodeValue())));
+                item.setExported(Boolean.parseBoolean(attributes.getNamedItem("exported").getNodeValue()));
 
                 itemList.add(item);
             }
@@ -178,6 +179,10 @@ public class MonthManager {
                 Attr amountA = document.createAttribute("amount");
                 amountA.setValue(String.valueOf(item.getAmount()));
                 itemE.setAttributeNode(amountA);
+
+                Attr exportedA = document.createAttribute("exported");
+                exportedA.setValue(String.valueOf(item.getExported()));
+                itemE.setAttributeNode(exportedA);
 
                 itemsE.appendChild(itemE);
             }

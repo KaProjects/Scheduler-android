@@ -1,7 +1,6 @@
 ## Versions
 ### 2.0
-+ test add item dialog + service + adjust components
-+ impl. preview + stats
++ add item dialog: adjust components(gaps,...)
 + solve all TODOs
 + try to build apk via maven
 + release:
@@ -10,7 +9,7 @@
     - update ABOUT_VERSION
 
 ### 2.1
-+ ...
++ impl. preview + stats
 
 ## Ideas
 - ...

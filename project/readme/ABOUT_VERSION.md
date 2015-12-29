@@ -6,3 +6,8 @@ Released: summer 2014
     
 # 2.0
 in progress...
+
+    Reworked back-end, now using xml for storing data. 
+    Improved layouts and gui.
+    Implemented socket server in purpose of exporting data to pc app.
+    

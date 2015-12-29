@@ -12,6 +12,7 @@ public class Item {
     private String type;
     private String description;
     private BigDecimal amount;
+    private Boolean exported;
 
     public Item(){
         id = null;
@@ -20,6 +21,7 @@ public class Item {
         day = null;
         income = null;
         amount = null;
+        exported = null;
     }
 
     public BigDecimal getAmount() {
@@ -70,6 +72,14 @@ public class Item {
         this.type = type;
     }
 
+    public Boolean getExported() {
+        return exported;
+    }
+
+    public void setExported(Boolean exported) {
+        this.exported = exported;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -77,24 +87,25 @@ public class Item {
 
         Item item = (Item) o;
 
-        if (amount != null ? !amount.equals(item.amount) : item.amount != null) return false;
-        if (day != null ? !day.equals(item.day) : item.day != null) return false;
-        if (description != null ? !description.equals(item.description) : item.description != null) return false;
         if (id != null ? !id.equals(item.id) : item.id != null) return false;
+        if (day != null ? !day.equals(item.day) : item.day != null) return false;
         if (income != null ? !income.equals(item.income) : item.income != null) return false;
         if (type != null ? !type.equals(item.type) : item.type != null) return false;
+        if (description != null ? !description.equals(item.description) : item.description != null) return false;
+        if (amount != null ? !amount.equals(item.amount) : item.amount != null) return false;
+        return !(exported != null ? !exported.equals(item.exported) : item.exported != null);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (day != null ? day.hashCode() : 0);
         result = 31 * result + (income != null ? income.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (amount != null ? amount.hashCode() : 0);
+        result = 31 * result + (exported != null ? exported.hashCode() : 0);
         return result;
     }
 }

@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Scheduler</string>
-    <string name="add_month">Add Month</string>
-    <string name="set_month_name_hint">set month name</string>
-    <string name="creating_month">Creating Month</string>
-    <string name="create">Create</string>
-    <string name="cancel">Cancel</string>
-    <string name="ok">OK</string>
-
-    <string name="adding_item">Adding Item</string>
-    <string name="set_day_hint">set day</string>
-    <string name="set_amount_hint">set amount</string>
-    <string name="today">Today</string>
-    <string name="add">Add</string>
-    <string name="income">Income</string>
-    <string name="expense">Expense</string>
-
+    <!-- dialog titles-->
+    <string name="dialog_create_month_title">Creating Month...</string>
+    <string name="dialog_add_item_title">Adding Item...</string>
+    <!-- dialog button texts-->
+    <string name="button_cancel_text">Cancel</string>
+    <string name="button_ok_text">OK</string>
+    <string name="button_add_text">Add</string>
+    <!-- main comp. texts -->
     <string name="label_month_text">Month:</string>
     <string name="button_add_month_text">Add</string>
     <string name="button_add_item_text">Add Item</string>
     <string name="button_preview_items_text">Preview Items</string>
     <string name="button_statistics_text">Statistics</string>
-
+    <!-- add item dialog comp. texts-->
+    <string name="button_today_text">Today</string>
+    <string name="toggle_income_text">Income</string>
+    <string name="toggle_expense_text">Expense</string>
+    <!-- hints -->
+    <string name="hint_set_month_name">set month name</string>
+    <string name="hint_set_day">set day</string>
+    <string name="hint_set_amount">set amount</string>
 </resources>

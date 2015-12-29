@@ -17,11 +17,6 @@ import java.util.List;
 public class Service {
     public static final String BACKEND_TAG = "back-end-log";
 
-
-    public Service(){
-
-    }
-
     /**
      * Checks if data directory and config file are created and will create them if not.
      */
@@ -73,8 +68,8 @@ public class Service {
      * @return list of names
      */
     public List<String> getMonthNames(){
-        List<String> monthNames = new ArrayList<String>();
         try {
+            List<String> monthNames = new ArrayList<String>();
             ConfigManager configManager = new ConfigManager();
             MonthManager monthManager = new MonthManager();
             for (Integer id : configManager.retrieveConfig().getMonthIds()){
@@ -100,6 +95,11 @@ public class Service {
         }
     }
 
+    /**
+     * TODO
+     * @param newItem
+     * @param monthName
+     */
     public void addItem(Item newItem, String monthName){
         try {
             ConfigManager configManager = new ConfigManager();
@@ -116,7 +116,27 @@ public class Service {
                     }
                     newId++;
                     newItem.setId(newId);
+                    newItem.setExported(false);
                     month.getItemList().add(newItem);
+                    monthManager.updateMonth(month);
+                }
+            }
+        } catch (ManagerException e) {
+            throw new ServiceFailureException(e);
+        }
+    }
+
+    public void markMonthAsExported(String monthName){
+        try {
+            ConfigManager configManager = new ConfigManager();
+            MonthManager monthManager = new MonthManager();
+
+            for (Integer id : configManager.retrieveConfig().getMonthIds()){
+                Month month = monthManager.retrieveMonth(id);
+                if (monthName.equals(month.getName())){
+                    for (Item item : month.getItemList()){
+                        item.setExported(true);
+                    }
                     monthManager.updateMonth(month);
                 }
             }
