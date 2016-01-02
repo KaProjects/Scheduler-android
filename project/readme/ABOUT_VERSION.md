@@ -11,3 +11,5 @@ Released: 1.1.2016
     Improved layouts and gui.
     Implemented socket server for synchronization with pc app. purposes.
     
+## 2.1
+Released: in progress  
