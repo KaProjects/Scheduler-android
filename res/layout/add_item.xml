@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="fill_parent"
+             android:layout_height="fill_parent" android:padding="5dip">
+    <TableRow android:layout_width="fill_parent">
+        <LinearLayout android:orientation="horizontal">
+            <EditText android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:inputType="number"
+                      android:ems="10"
+                      android:id="@+id/itemTextDay"/>
+            <Button android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_today_text"
+                    android:id="@+id/itemButtonToday"
+                    android:layout_gravity="end"/>
+        </LinearLayout>
+    </TableRow>
+    <TableRow android:layout_marginTop="5dip">
+        <ToggleButton android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:checked="false"
+                      android:id="@+id/itemToggleIncome"/>
+    </TableRow>
+    <TableRow android:layout_width="fill_parent"
+              android:layout_height="fill_parent" android:layout_marginTop="5dip">
+        <AutoCompleteTextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:id="@+id/itemTextType"/>
+    </TableRow>
+    <TableRow android:layout_width="fill_parent"
+              android:layout_height="fill_parent" android:layout_marginTop="5dip">
+        <AutoCompleteTextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:id="@+id/itemTextDesc"/>
+    </TableRow>
+    <TableRow android:layout_width="fill_parent"
+              android:layout_height="fill_parent" android:layout_marginTop="5dip">
+        <EditText android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:inputType="number"
+                  android:ems="10"
+                  android:id="@+id/itemTextAmount"/>
+    </TableRow>
+</TableLayout>
