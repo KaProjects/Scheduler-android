@@ -1,4 +1,4 @@
-package org.kaleta.scheduler.backend.service;
+package org.kaleta.scheduler.service;
 
 /**
  * Author: Stanislav Kaleta

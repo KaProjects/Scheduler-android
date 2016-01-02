@@ -1,4 +1,4 @@
-package org.kaleta.scheduler.frontend;
+package org.kaleta.scheduler.frontend.dialog;
 
 import android.app.AlertDialog;
 import android.content.Context;

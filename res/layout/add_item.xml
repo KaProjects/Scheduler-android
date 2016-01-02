@@ -25,14 +25,14 @@
     <TableRow android:layout_width="fill_parent"
               android:layout_height="fill_parent" android:layout_marginTop="5dip">
         <AutoCompleteTextView android:layout_width="wrap_content"
-                              android:layout_height="fill_parent"
+                              android:layout_height="wrap_content"
                               android:id="@+id/itemTextType"/>
     </TableRow>
     <TableRow android:layout_width="fill_parent"
               android:layout_height="fill_parent" android:layout_marginTop="5dip">
-        <Spinner android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/itemSpinnerDesc"/>
+        <AutoCompleteTextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:id="@+id/itemTextDesc"/>
     </TableRow>
     <TableRow android:layout_width="fill_parent"
               android:layout_height="fill_parent" android:layout_marginTop="5dip">

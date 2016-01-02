@@ -2,10 +2,10 @@ package org.kaleta.scheduler.backend.manager;
 
 import android.os.Environment;
 import android.util.Log;
-import org.kaleta.scheduler.MyActivity;
+import org.kaleta.scheduler.frontend.MainActivity;
 import org.kaleta.scheduler.backend.entity.Item;
 import org.kaleta.scheduler.backend.entity.Month;
-import org.kaleta.scheduler.backend.service.Service;
+import org.kaleta.scheduler.service.Service;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -13,12 +13,14 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +34,10 @@ public class MonthManager {
 
     public void createMonth(Month month) throws ManagerException {
         String fileName = "m" + month.getId() +"-" +month.getName() + ".xml";
-        File file = new File(Environment.getExternalStorageDirectory() +"/" +MyActivity.SCHEDULER_DIRECTORY,fileName);
+        File file = new File(Environment.getExternalStorageDirectory() +"/" + MainActivity.SCHEDULER_DIRECTORY,fileName);
         if (file.exists()){
             String msg = "File "+fileName +" already exists!";
-            Log.e(Service.BACKEND_TAG, msg);
+            Log.e(ConfigManager.BACKEND_TAG, msg);
             throw new ManagerException(msg);
         }
         try {
@@ -62,7 +64,7 @@ public class MonthManager {
             DOMSource source = new DOMSource(document);
             StreamResult result = new StreamResult(new FileOutputStream(file));
             transformer.transform(source, result);
-            Log.i(Service.BACKEND_TAG, "File " + fileName + " successfully created.");
+            Log.i(ConfigManager.BACKEND_TAG, "File " + fileName + " successfully created.");
         } catch (ParserConfigurationException | TransformerException | FileNotFoundException e) {
             Log.e(e.getClass().getName(), e.getMessage());
             throw new ManagerException(e);
@@ -70,7 +72,7 @@ public class MonthManager {
     }
 
     public Month retrieveMonth(Integer id) throws ManagerException {
-        File dir = new File(Environment.getExternalStorageDirectory(),MyActivity.SCHEDULER_DIRECTORY);
+        File dir = new File(Environment.getExternalStorageDirectory(), MainActivity.SCHEDULER_DIRECTORY);
         File file = null;
         for (File f : dir.listFiles()){
             if (f.getName().startsWith("m"+id+"-")){
@@ -79,7 +81,7 @@ public class MonthManager {
         }
         if (file == null){
             String msg = "File for month with id="+id+" not found!";
-            Log.e(Service.BACKEND_TAG, msg);
+            Log.e(ConfigManager.BACKEND_TAG, msg);
             throw new ManagerException(msg);
         }
         Month month = new Month();
@@ -118,10 +120,10 @@ public class MonthManager {
 
     public void updateMonth(Month month) throws ManagerException {
         String fileName = "m" + month.getId() +"-" +month.getName() + ".xml";
-        File file = new File(Environment.getExternalStorageDirectory() +"/" +MyActivity.SCHEDULER_DIRECTORY,fileName);
+        File file = new File(Environment.getExternalStorageDirectory() +"/" + MainActivity.SCHEDULER_DIRECTORY,fileName);
         if (!file.exists()){
             String msg = "File for month \""+month.getName()+"\" not found!";
-            Log.e(Service.BACKEND_TAG, msg);
+            Log.e(ConfigManager.BACKEND_TAG, msg);
             throw new ManagerException(msg);
         }
         try {
@@ -131,7 +133,7 @@ public class MonthManager {
 
             Element rootE = document.getDocumentElement();
 
-            //TODO if edit month is possible then update name here
+            //if edit month is possible then update name here
 
             Element itemsE = (Element)rootE.getElementsByTagName("items").item(0);
             NodeList itemNodes = itemsE.getChildNodes();
@@ -177,7 +179,7 @@ public class MonthManager {
             DOMSource source = new DOMSource(document);
             StreamResult result = new StreamResult(new FileOutputStream(file));
             transformer.transform(source, result);
-            Log.i(Service.BACKEND_TAG, "Month \""+month.getName()+"\" successfully updated.");
+            Log.i(ConfigManager.BACKEND_TAG, "Month \""+month.getName()+"\" successfully updated.");
         } catch (ParserConfigurationException | SAXException | IOException | TransformerException e) {
             Log.e(e.getClass().getName(), e.getMessage());
             throw new ManagerException(e);

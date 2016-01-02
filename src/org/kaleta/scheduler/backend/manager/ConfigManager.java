@@ -2,10 +2,10 @@ package org.kaleta.scheduler.backend.manager;
 
 import android.os.Environment;
 import android.util.Log;
-import org.kaleta.scheduler.MyActivity;
+import org.kaleta.scheduler.frontend.MainActivity;
 import org.kaleta.scheduler.backend.entity.Config;
 import org.kaleta.scheduler.backend.entity.ItemType;
-import org.kaleta.scheduler.backend.service.Service;
+import org.kaleta.scheduler.service.Service;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -13,7 +13,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -29,12 +28,13 @@ import java.util.List;
  * CRUD for SCHEDULER/config.xml
  */
 public class ConfigManager {
+    public static final String BACKEND_TAG = "back-end-log";
 
     public void createConfig() throws ManagerException {
-        File directory = new File(Environment.getExternalStorageDirectory(), MyActivity.SCHEDULER_DIRECTORY);
+        File directory = new File(Environment.getExternalStorageDirectory(), MainActivity.SCHEDULER_DIRECTORY);
         if (!directory.exists()) {
             if (directory.mkdirs()){
-                Log.i(Service.BACKEND_TAG,"Data directory successfully created.");
+                Log.i(ConfigManager.BACKEND_TAG,"Data directory successfully created.");
             } else {
                 String msg = "Unable to create data directory in external storage!";
                 Log.e("InternalError",msg);
@@ -66,7 +66,7 @@ public class ConfigManager {
             File configFile = new File(directory,"config.xml");
             StreamResult result = new StreamResult(configFile);
             transformer.transform(source, result);
-            Log.i(Service.BACKEND_TAG,"File config.xml successfully created.");
+            Log.i(ConfigManager.BACKEND_TAG,"File config.xml successfully created.");
         } catch (ParserConfigurationException | TransformerException e) {
             Log.e(e.getClass().getName(),e.getMessage());
             throw new ManagerException(e);
@@ -75,10 +75,10 @@ public class ConfigManager {
     }
 
     public Config retrieveConfig() throws ManagerException {
-        File file = new File(Environment.getExternalStorageDirectory() +"/" +MyActivity.SCHEDULER_DIRECTORY,"config.xml");
+        File file = new File(Environment.getExternalStorageDirectory() +"/" + MainActivity.SCHEDULER_DIRECTORY,"config.xml");
         if (!file.exists()){
             String msg = "File config.xml not found!";
-            Log.e(Service.BACKEND_TAG, msg);
+            Log.e(ConfigManager.BACKEND_TAG, msg);
             throw new ManagerException(msg);
         }
         Config config = new Config();
@@ -127,10 +127,10 @@ public class ConfigManager {
     }
 
     public void updateConfig(Config config) throws ManagerException {
-        File file = new File(Environment.getExternalStorageDirectory() +"/" +MyActivity.SCHEDULER_DIRECTORY,"config.xml");
+        File file = new File(Environment.getExternalStorageDirectory() +"/" + MainActivity.SCHEDULER_DIRECTORY,"config.xml");
         if (!file.exists()){
             String msg = "File config.xml not found!";
-            Log.e(Service.BACKEND_TAG, msg);
+            Log.e(ConfigManager.BACKEND_TAG, msg);
             throw new ManagerException(msg);
         }
         try {
@@ -191,7 +191,7 @@ public class ConfigManager {
             DOMSource source = new DOMSource(document);
             StreamResult result = new StreamResult(file);
             transformer.transform(source, result);
-            Log.i(Service.BACKEND_TAG, "File config.xml successfully updated.");
+            Log.i(ConfigManager.BACKEND_TAG, "File config.xml successfully updated.");
         } catch (ParserConfigurationException | SAXException | IOException | TransformerException e) {
             Log.e(e.getClass().getName(), e.getMessage());
             throw new ManagerException(e);

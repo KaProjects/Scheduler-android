@@ -1,9 +1,9 @@
-package org.kaleta.scheduler.backend.service;
+package org.kaleta.scheduler.service;
 
 import org.kaleta.scheduler.backend.entity.Config;
 import org.kaleta.scheduler.backend.entity.Item;
-import org.kaleta.scheduler.backend.entity.Month;
 import org.kaleta.scheduler.backend.entity.ItemType;
+import org.kaleta.scheduler.backend.entity.Month;
 import org.kaleta.scheduler.backend.manager.ConfigManager;
 import org.kaleta.scheduler.backend.manager.ManagerException;
 import org.kaleta.scheduler.backend.manager.MonthManager;
@@ -15,7 +15,6 @@ import java.util.List;
  * Created by Stanislav Kaleta on 10.10.2015.
  */
 public class Service {
-    public static final String BACKEND_TAG = "back-end-log";
 
     /**
      * Checks if data directory and config file are created and will create them if not.
@@ -31,7 +30,7 @@ public class Service {
 
     /**
      * Creates new month with specified name.
-     * @param name of new month
+     * @param name - name of new month
      */
     public void createMonth(String name){
         for (String existing : getMonthNames()){
@@ -64,8 +63,7 @@ public class Service {
     }
 
     /**
-     * Retrieves names of all months in database.
-     * @return list of names
+     * Retrieves names of all months in data source.
      */
     public List<String> getMonthNames(){
         try {
@@ -82,8 +80,7 @@ public class Service {
     }
 
     /**
-     * Retrieves item types from config file.
-     * @return list of item types
+     * Retrieves all registered item types from data source.
      */
     public List<ItemType> getItemTypes(){
         try {
@@ -96,8 +93,7 @@ public class Service {
     }
 
     /**
-     * TODo
-     * @param typeList
+     * Saves item types to data source.
      */
     public void setItemTypes(List<ItemType> typeList){
         try {
@@ -112,9 +108,9 @@ public class Service {
     }
 
     /**
-     * TODO
-     * @param newItem
-     * @param monthName
+     * Adds new item to data source.
+     * @param newItem - item which has to be added.
+     * @param monthName - name of related month
      */
     public void addItem(Item newItem, String monthName){
         try {
@@ -143,8 +139,7 @@ public class Service {
     }
 
     /**
-     * TODO
-     * @param monthName
+     * Marks month as exported in data source.
      */
     public void markMonthAsExported(String monthName){
         try {

@@ -1,10 +1,8 @@
-package org.kaleta.scheduler.frontend;
+package org.kaleta.scheduler.frontend.dialog;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.drawable.Drawable;
-import android.view.Window;
 import org.kaleta.scheduler.R;
 
 /**

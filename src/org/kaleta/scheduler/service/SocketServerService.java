@@ -1,18 +1,19 @@
-package org.kaleta.scheduler.backend.service;
+package org.kaleta.scheduler.service;
 
 import android.content.Context;
 import android.util.Log;
-import org.kaleta.scheduler.MyActivity;
 import org.kaleta.scheduler.backend.entity.Item;
 import org.kaleta.scheduler.backend.entity.ItemType;
 import org.kaleta.scheduler.backend.entity.Month;
 import org.kaleta.scheduler.backend.manager.ConfigManager;
 import org.kaleta.scheduler.backend.manager.ManagerException;
 import org.kaleta.scheduler.backend.manager.MonthManager;
-import org.kaleta.scheduler.frontend.MessageDialog;
+import org.kaleta.scheduler.frontend.dialog.MessageDialog;
 
-import java.io.*;
-import java.math.BigDecimal;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;

@@ -1,19 +1,21 @@
-package org.kaleta.scheduler.frontend;
+package org.kaleta.scheduler.frontend.dialog;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.*;
 import org.kaleta.scheduler.R;
 import org.kaleta.scheduler.backend.entity.Item;
 import org.kaleta.scheduler.backend.entity.ItemType;
-import org.kaleta.scheduler.backend.service.Service;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by Stanislav Kaleta on 11.10.2015.
@@ -22,20 +24,23 @@ public abstract class AddItemDialog extends AlertDialog.Builder {
     private List<ItemType> types;
 
     private List<String> textTypeList;
-    private List<String> spinnerDescList;
+    private List<String> textDescList;
 
     private ToggleButton toggleButtonIncome;
     private AutoCompleteTextView textType;
+    private AutoCompleteTextView textDesc;
 
     public AddItemDialog(final Context context, List<ItemType> types) {
         super(context);
         this.types = types;
-        textTypeList = new ArrayList<String>();
-        spinnerDescList = new ArrayList<String>();
-
+        textTypeList = new ArrayList<>();
+        textDescList = new ArrayList<>();
         this.setTitle(R.string.dialog_add_item_title);
+        initComponents();
+    }
 
-        View newItemView = View.inflate(context, R.layout.add_item, null);
+    private void initComponents() {
+        View newItemView = View.inflate(getContext(), R.layout.add_item, null);
 
         final EditText textDay = (EditText) newItemView.findViewById(R.id.itemTextDay);
         textDay.setHint(R.string.hint_set_day);
@@ -51,8 +56,8 @@ public abstract class AddItemDialog extends AlertDialog.Builder {
         });
 
         toggleButtonIncome = (ToggleButton) newItemView.findViewById(R.id.itemToggleIncome);
-        toggleButtonIncome.setTextOn(context.getResources().getString(R.string.toggle_income_text));
-        toggleButtonIncome.setTextOff(context.getResources().getString(R.string.toggle_expense_text));
+        toggleButtonIncome.setTextOn(getContext().getResources().getString(R.string.toggle_income_text));
+        toggleButtonIncome.setTextOff(getContext().getResources().getString(R.string.toggle_expense_text));
         toggleButtonIncome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,7 +66,7 @@ public abstract class AddItemDialog extends AlertDialog.Builder {
         });
 
         textType = (AutoCompleteTextView) newItemView.findViewById(R.id.itemTextType);
-        ArrayAdapter<String> adapterType = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, textTypeList);
+        ArrayAdapter<String> adapterType = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, textTypeList);
         textType.setAdapter(adapterType);
         textType.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -70,11 +75,29 @@ public abstract class AddItemDialog extends AlertDialog.Builder {
                 return false;
             }
         });
+        textType.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
-        final Spinner spinnerDesc = (Spinner) newItemView.findViewById(R.id.itemSpinnerDesc);
-        ArrayAdapter<String> adapterDesc = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, spinnerDescList);
-        spinnerDesc.setAdapter(adapterDesc);
-        // TODO change to AutoCompleteTextView + (textType onSelectAction will fill this with desc.(+clear))
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                setUpDescriptions(s.toString());
+            }
+        });
+
+        textDesc = (AutoCompleteTextView) newItemView.findViewById(R.id.itemTextDesc);
+        ArrayAdapter<String> adapterDesc = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, textDescList);
+        textDesc.setAdapter(adapterDesc);
+        textDesc.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                ((AutoCompleteTextView) v).showDropDown();
+                return false;
+            }
+        });
 
         final EditText textAmount = (EditText) newItemView.findViewById(R.id.itemTextAmount);
         textAmount.setHint(R.string.hint_set_amount);
@@ -90,7 +113,7 @@ public abstract class AddItemDialog extends AlertDialog.Builder {
                     Integer day = Integer.valueOf(textDay.getText().toString());
                     item.setDay(day);
                 } catch (NumberFormatException e){
-                    new MessageDialog(context, "Inserted day is not valid!").show();
+                    new MessageDialog(getContext(), "Inserted day is not valid!").show();
                     return;
                 }
 
@@ -98,19 +121,20 @@ public abstract class AddItemDialog extends AlertDialog.Builder {
                     BigDecimal amount = BigDecimal.valueOf(Double.valueOf(textAmount.getText().toString()));
                     item.setAmount(amount);
                 } catch (NumberFormatException e){
-                    new MessageDialog(context, "Inserted amount is not valid!").show();
+                    new MessageDialog(getContext(), "Inserted amount is not valid!").show();
                     return;
                 }
 
-                String description = (String) spinnerDesc.getSelectedItem();
-                if (description == null){
-                    description = "";
+                String description = textDesc.getText().toString();
+                if (description.equals("")){
+                    new MessageDialog(getContext(), "Description is not selected!").show();
+                    return;
                 }
                 item.setDescription(description);
 
                 String type = textType.getText().toString();
                 if (type.equals("")){
-                    new MessageDialog(context, "Type is not selected!").show();
+                    new MessageDialog(getContext(), "Type is not selected!").show();
                     return;
                 }
                 item.setType(type);
@@ -130,7 +154,6 @@ public abstract class AddItemDialog extends AlertDialog.Builder {
 
         toggleButtonIncome.setChecked(false);
         setUpTypes(false);
-
     }
 
     private void setUpTypes(boolean income) {
@@ -142,7 +165,19 @@ public abstract class AddItemDialog extends AlertDialog.Builder {
         }
         textType.getText().clear();
         // dunno why dropdown not changed when getText().clear() is called
-        textType.setAdapter(new ArrayAdapter<String>(textType.getContext(), android.R.layout.simple_spinner_dropdown_item, textTypeList));
+        textType.setAdapter(new ArrayAdapter<>(textType.getContext(), android.R.layout.simple_spinner_dropdown_item, textTypeList));
+    }
+
+    private void setUpDescriptions(String typeName){
+        textDescList.clear();
+        for (ItemType type : types){
+            if (type.getName().equals(typeName)){
+                textDescList.addAll(type.getPreparedDescriptions());
+            }
+        }
+        textDesc.getText().clear();
+        // dunno why dropdown not changed when getText().clear() is called
+        textDesc.setAdapter(new ArrayAdapter<>(textDesc.getContext(), android.R.layout.simple_spinner_dropdown_item, textDescList));
     }
 
     public abstract void performAddItem(Item item);

@@ -5,7 +5,7 @@ Released: summer 2014
     Simple GUI and backend (just a few components and text files)
     
 # 2.0
-in progress...
+Released: 1.1.2016  
 
     Reworked back-end, now using xml for storing data. 
     Improved layouts and gui.

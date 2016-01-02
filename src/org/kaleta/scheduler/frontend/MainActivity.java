@@ -1,45 +1,35 @@
-package org.kaleta.scheduler;
+package org.kaleta.scheduler.frontend;
 
 import android.app.Activity;
 import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.text.format.Formatter;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import org.kaleta.scheduler.backend.entity.Config;
+import org.kaleta.scheduler.R;
 import org.kaleta.scheduler.backend.entity.Item;
-import org.kaleta.scheduler.backend.entity.ItemType;
-import org.kaleta.scheduler.backend.manager.ConfigManager;
-import org.kaleta.scheduler.backend.manager.ManagerException;
-import org.kaleta.scheduler.backend.service.Service;
-import org.kaleta.scheduler.backend.service.SocketServerService;
-import org.kaleta.scheduler.frontend.AddItemDialog;
-import org.kaleta.scheduler.frontend.InputDialog;
-import org.kaleta.scheduler.frontend.MessageDialog;
+import org.kaleta.scheduler.service.Service;
+import org.kaleta.scheduler.service.SocketServerService;
+import org.kaleta.scheduler.frontend.dialog.AddItemDialog;
+import org.kaleta.scheduler.frontend.dialog.InputDialog;
+import org.kaleta.scheduler.frontend.dialog.MessageDialog;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Stanislav Kaleta on 10.10.2015.
  */
-public class MyActivity extends Activity {
+public class MainActivity extends Activity {
     public static final String SCHEDULER_DIRECTORY = "SCHEDULER";
 
     private Service service;
     private List<String> monthNames;
 
-    public MyActivity(){
+    public MainActivity(){
         service = new Service();
         monthNames = new ArrayList<String>();
     }
