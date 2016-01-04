@@ -66,7 +66,9 @@ public abstract class AddItemDialog extends AlertDialog.Builder {
         });
 
         textType = (AutoCompleteTextView) newItemView.findViewById(R.id.itemTextType);
+        textType.setThreshold(1);
         ArrayAdapter<String> adapterType = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, textTypeList);
+
         textType.setAdapter(adapterType);
         textType.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -89,6 +91,7 @@ public abstract class AddItemDialog extends AlertDialog.Builder {
         });
 
         textDesc = (AutoCompleteTextView) newItemView.findViewById(R.id.itemTextDesc);
+        textDesc.setThreshold(1);
         ArrayAdapter<String> adapterDesc = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, textDescList);
         textDesc.setAdapter(adapterDesc);
         textDesc.setOnTouchListener(new View.OnTouchListener() {
@@ -126,10 +129,7 @@ public abstract class AddItemDialog extends AlertDialog.Builder {
                 }
 
                 String description = textDesc.getText().toString();
-                if (description.equals("")){
-                    new MessageDialog(getContext(), "Description is not selected!").show();
-                    return;
-                }
+                // desc. can be empty string
                 item.setDescription(description);
 
                 String type = textType.getText().toString();
